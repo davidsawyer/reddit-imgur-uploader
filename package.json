@@ -1,0 +1,23 @@
+{
+    "name": "reddit-imgur-uploader",
+    "version": "0.1.0",
+    "description": "Upload an image to Imgur and use the resulting URL without ever leaving your Reddit tab",
+    "main": "index.js",
+    "author": "David Sawyer",
+    "license": "GPL-3.0",
+    "engines": {
+        "node": ">=v4.2.4"
+    },
+        "dependencies": {
+        "del": "^2.2.0",
+        "gulp": "^3.9.0",
+        "gulp-autoprefixer": "^3.1.0",
+        "gulp-concat": "^2.6.0",
+        "gulp-notify": "^2.2.0",
+        "gulp-sass": "^2.1.1",
+        "gulp-sourcemaps": "^1.6.0",
+        "gulp-uglify": "^1.5.1",
+        "gulp-util": "^3.0.7",
+        "jquery": "^2.1.4"
+    }
+}

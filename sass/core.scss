@@ -1,0 +1,89 @@
+// override reddit's comment tray overflow so our tooltip can show up completely
+.usertext .bottom-area {
+    overflow: visible !important;
+
+    #newlink & {
+        // this is ugly, but explicitly set the height here, as no clearfixing method
+        // works well, mainly due to reddit's float arrangement on the new link page
+        height: 2.5em;
+    }
+}
+
+.image-uploader-button {
+    position: relative;
+    cursor: pointer;
+    float: right;
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 11px !important;
+    font-weight: normal;
+    line-height: 14px;
+    margin: 4px 0 0;
+    padding-top: 2px;
+    padding-bottom: 3px;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+    text-transform: lowercase;
+    -webkit-appearance: button;
+
+    &.for-submit-link-page {
+        margin-left: 10px;
+    }
+
+    .image-uploader {
+        display: none;
+    }
+
+    $red: #F44336;
+    .error-tooltip {
+        display: none;
+        // opacity: 0;
+        white-space: normal;
+        position: absolute;
+        line-height: 1.5em;
+        top: -31px;
+        color: #FFFFFF;
+        background: $red;
+        text-align: center;
+        border-radius: 4px;
+        padding: 4px;
+        transition: 200ms;
+        min-width: 175px;
+        text-transform: none;
+
+        &:after {
+            content: '';
+            position: absolute;
+            top: 99%;
+            left: 50%;
+            margin-left: -8px;
+            height: 0;
+            width: 0;
+            border-top: 8px solid $red;
+            border-right: 8px solid transparent;
+            border-left: 8px solid transparent;
+        }
+    }
+
+    &.reddit-imgur-uploader-error .error-tooltip {
+        display: block;
+        // opacity: 100;
+    }
+}
+
+.reddit-imgur-uploader-loading-pane {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50px 50px;
+    transition: 200ms;
+
+    color: transparent;
+    text-indent: -200%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+
