@@ -16,6 +16,8 @@ In order to get up and running locally, you'll need to:
 8. choose the project root directory, and you should be good to go!
 
 ## todos
+- [ ] highlighting text then uploading an image will create a markdown-style link to that image
+- [ ] account support
 - [ ] drag and drop uploading
 - [ ] refactor how we determine our behavior based on what page we're on (comments page vs. submit link vs. submit text)
 - [ ] DRY up our uploader button injection
