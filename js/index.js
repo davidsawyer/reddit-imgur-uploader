@@ -1,6 +1,6 @@
 $('#siteTable form[action="#"] div.bottom-area a.reddiquette, ' +         // comments page's post text section
     '.commentarea form[action="#"] div.bottom-area a.reddiquette').after( // comments page's comments section
-        '<label class="image-uploader-button">upload image' +
+        '<label class="image-uploader-button" tabindex="0">upload image' +
             '<input type="file" class="image-uploader">' +
             '<span class="error-tooltip"></span>' +
         '</label>'
@@ -8,7 +8,7 @@ $('#siteTable form[action="#"] div.bottom-area a.reddiquette, ' +         // com
 
 // submit page's text section
 $('form.submit div.bottom-area a.reddiquette').after(
-    '<label class="image-uploader-button for-submit-text-page">upload image' +
+    '<label class="image-uploader-button for-submit-text-page" tabindex="0">upload image' +
         '<input type="file" class="image-uploader">' +
         '<span class="error-tooltip"></span>' +
     '</label>'
@@ -18,7 +18,7 @@ $('form.submit div.bottom-area a.reddiquette').after(
 ;(function() {
     var $suggestTitleDiv = $('#suggest-title');
     $suggestTitleDiv.append(
-        '<label class="image-uploader-button for-submit-link-page">upload image' +
+        '<label class="image-uploader-button for-submit-link-page" tabindex="0">upload image' +
             '<input type="file" class="image-uploader">' +
             '<span class="error-tooltip"></span>' +
         '</label>'
@@ -46,7 +46,7 @@ $('body').click(function(event) {
 
         if ($reddiquetteLink.siblings('label.image-uploader-button').length == 0) {
             $reddiquetteLink.after(
-                '<label class="image-uploader-button">upload image' +
+                '<label class="image-uploader-button" tabindex="0">upload image' +
                     '<input type="file" class="image-uploader">' +
                     '<span class="error-tooltip"></span>' +
                 '</label>'
