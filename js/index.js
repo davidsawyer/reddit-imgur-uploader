@@ -1,5 +1,3 @@
-var LOADING_PANE_CLASS = 'reddit-imgur-uploader-loading-pane';
-
 $('#siteTable form[action="#"] div.bottom-area a.reddiquette, ' +         // comments page's post text section
     '.commentarea form[action="#"] div.bottom-area a.reddiquette').after( // comments page's comments section
         '<label class="image-uploader-button">upload image' +
@@ -217,9 +215,9 @@ function showLoading($targetTextElement) {
 
     $containerDiv
         .css('position', 'relative')
-        .append($('<div/>').addClass(LOADING_PANE_CLASS).text('Uploading...'));
+        .append($('<div/>').addClass('reddit-imgur-uploader-loading-pane').text('Uploading...'));
 
-    $containerDiv.find('.' + LOADING_PANE_CLASS).css({
+    $containerDiv.find('.reddit-imgur-uploader-loading-pane').css({
         'background-image': 'url(' + loadingGifUrl + ')',
         'height': height,
         'width': width,
@@ -233,7 +231,7 @@ function hideLoading($targetTextElement) {
         $targetTextElement.closest('#url-field') :
         $targetTextElement.closest('.md');
 
-    var $loadingPane = $containerDiv.find('.' + LOADING_PANE_CLASS);
+    var $loadingPane = $containerDiv.find('.reddit-imgur-uploader-loading-pane');
 
     $loadingPane.css('opacity', 0);
 
