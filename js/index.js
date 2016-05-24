@@ -55,6 +55,88 @@ $('body').click(function(event) {
     }
 });
 
+
+$('#siteTable form[action="#"] .md textarea, ' + // comments page's OP textarea
+    '.commentarea form[action="#"] .md textarea, ' + // comments page's comment textarea
+    'form.submit .md textarea') // submit page's textarea
+        .blur(function preserveHighlightIfNecessary() {
+
+    var textarea = this,
+        $textarea = $(textarea);
+
+    if (textarea.selectionStart != textarea.selectionEnd) {
+        setTimeout(function() {
+            var $activeElement = $(document.activeElement),
+                $correspondingTextarea;
+
+            if ($activeElement.hasClass('image-uploader-button')) {
+                if ($activeElement.hasClass('for-submit-text-page')) {
+                    $correspondingTextarea = $activeElement.closest('.usertext-edit').find('.md textarea');
+                } else {
+                    $correspondingTextarea = $activeElement.closest('form').find('textarea');
+                }
+
+                if ($correspondingTextarea[0] === textarea) {
+                    $textarea.addClass('reddit-imgur-uploader-just-active-and-highlighted');
+
+                    var $fileInput = $activeElement.find('.image-uploader');
+
+                    $fileInput.one('click', function() {
+                        preserveSelection(textarea);
+                    });
+                }
+            }
+        });
+    }
+});
+
+function preserveSelection(element) {
+    var selectionStart = element.selectionStart,
+        selectionEnd = element.selectionEnd;
+
+    element.selectionStart = selectionStart
+    element.selectionEnd = selectionEnd
+}
+
+function injectLink($textNode, url) {
+    var textNode = $textNode[0],
+        justActiveAndHighlightedClass = 'reddit-imgur-uploader-just-active-and-highlighted',
+        currentText = $textNode.val();
+
+    if ($textNode.hasClass(justActiveAndHighlightedClass)) {
+        $textNode.removeClass(justActiveAndHighlightedClass);
+
+        var highlightedText = currentText.substring(textNode.selectionStart, textNode.selectionEnd),
+            textBeforeHighlightedText = currentText.substring(0, textNode.selectionStart),
+            textAfterHighlightedText = currentText.substring(textNode.selectionEnd),
+            markdownLink = '[' + highlightedText + '](' + url + ')',
+            newText = textBeforeHighlightedText + markdownLink + textAfterHighlightedText;
+
+        $textNode.val(newText);
+
+        var indexOfMarkdownLink = newText.indexOf(markdownLink);
+
+        textNode.selectionStart = indexOfMarkdownLink;
+        textNode.selectionEnd = indexOfMarkdownLink + markdownLink.length;
+    } else {
+        $textNode
+            .focus()
+            .val(currentText + (currentText.trim().length > 0 ? " " : "") + url);
+
+        // highlight our newly inserted URL
+        var textNode = $textNode[0];
+        if (textNode) {
+            currentText = $textNode.val();
+            textNode.selectionStart = currentText.indexOf(url);
+            textNode.selectionEnd = currentText.length;
+        }
+    }
+
+    // dispatch event so that RES's Live Preview updates
+    textNode.dispatchEvent(new Event('input'));
+}
+
+
 function setUpFileHandler($button) {
     var $fileInput = $button.find('.image-uploader');
 
@@ -129,17 +211,7 @@ function uploadImageFromFileInput(image, $fileInput) {
             var currentText = $targetTextElement.val(),
                 imgurUrl = data.data.link.replace('http://', 'https://'); // imgur often passes back non-SSL URLs
 
-            $targetTextElement
-                .focus()
-                .val(currentText + (currentText.trim().length > 0 ? " " : "") + imgurUrl);
-
-            // highlight our newly inserted URL
-            var textareaNode = $targetTextElement[0];
-            if (textareaNode) {
-                currentText = $targetTextElement.val();
-                textareaNode.selectionStart = currentText.indexOf(imgurUrl);
-                textareaNode.selectionEnd = currentText.length;
-            }
+            injectLink($targetTextElement, imgurUrl);
         } else {
             showButtonError($button, "Uh oh, something went wrong" +
                 (data && data.data && data.data.error ? " " + data.data.error : ""));
