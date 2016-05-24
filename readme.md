@@ -23,6 +23,7 @@ In order to get up and running locally, you'll need to:
 - [ ] DRY up our uploader button injection
 - [ ] figure out how to trigger RES comment preview on text injection
 - [ ] add uploader button to /message/*
+- [ ] move to ES6
 
 ![](https://zippy.gfycat.com/LoneAgonizingAztecant.gif)
 
