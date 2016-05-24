@@ -48,12 +48,7 @@ gulp.task('sass-prod', function() {
 
 gulp.task('scripts', function() {
     gulp.src(paths.scripts)
-        .pipe(uglify().on('error', notify.onError(function(error) {
-            return "Error: " + error.message;
-        })))
-        .pipe(sourcemaps.init())
         .pipe(concat('index.min.js'))
-        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(paths.destination));
 });
 
