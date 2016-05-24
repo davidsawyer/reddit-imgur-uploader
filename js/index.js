@@ -145,8 +145,8 @@ function setUpFileHandler($button) {
         .on('change', function(event) {
             var image = event.target.files[0];
 
-            // if we don't reset the element, then if the user chooses the same
-            // file back to back, it won't trigger a change event the second time
+            // if we don't reset the element and the user chooses the same file
+            // back to back, it won't trigger a change event the second time
             resetFileInputElement($fileInput, event);
 
             if (image) {
