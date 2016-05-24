@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Reddit Imgur Uploader",
     "description": "Upload an image to Imgur and get the resulting URL without ever leaving your Reddit tab",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "author": "David Sawyer",
     "content_scripts": [
         {
