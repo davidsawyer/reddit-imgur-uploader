@@ -29,35 +29,13 @@ gulp.task('sass', function() {
         .pipe(sass().on('error', notify.onError(function(error) {
             return "Error: " + error.message;
         })))
-        .pipe(sourcemaps.init())
-        .pipe(sass({outputStyle: 'compressed'}))
-        .pipe(autoprefixer())
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(paths.destination));
-});
-
-gulp.task('sass-prod', function() {
-    gulp.src(paths.styles)
-        .pipe(sass().on('error', notify.onError(function(error) {
-            return "Error: " + error.message;
-        })))
-        .pipe(sass({outputStyle: 'compressed'}))
         .pipe(autoprefixer())
         .pipe(gulp.dest(paths.destination));
 });
 
 gulp.task('scripts', function() {
     gulp.src(paths.scripts)
-        .pipe(concat('index.min.js'))
-        .pipe(gulp.dest(paths.destination));
-});
-
-gulp.task('scripts-prod', ['clean'], function() {
-    gulp.src(paths.scripts)
-        .pipe(uglify().on('error', notify.onError(function(error) {
-            return "Error: " + error.message;
-        })))
-        .pipe(concat('index.min.js'))
+        .pipe(concat('index.js'))
         .pipe(gulp.dest(paths.destination));
 });
 
@@ -67,4 +45,4 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', ['scripts', 'sass', 'watch']);
-gulp.task('prod', ['scripts-prod', 'sass-prod']);
+gulp.task('prod', ['scripts', 'sass']);
