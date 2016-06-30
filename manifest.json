@@ -19,7 +19,7 @@
                 "*://*.reddit.com/*/comments/*"
             ],
             "css": ["dist/core.css"],
-            "js": ["dist/index.min.js"],
+            "js": ["dist/index.js"],
             "run_at": "document_idle"
         }
     ],
