@@ -16,7 +16,7 @@ $('form.submit div.bottom-area a.reddiquette').after(
 
 // use an iife here so that the scope of these vars doesn't get too crazy
 ;(function() {
-    var $suggestTitleDiv = $('#suggest-title');
+    var $suggestTitleDiv = $('#new-link-image-input');
     $suggestTitleDiv.append(
         '<label class="image-uploader-button for-submit-link-page" tabindex="0">upload image' +
             '<input type="file" class="image-uploader">' +
@@ -24,11 +24,13 @@ $('form.submit div.bottom-area a.reddiquette').after(
         '</label>'
     );
 
-    var $imageUploaderButton = $suggestTitleDiv.find('.image-uploader-button'),
-        $suggestTitleButton = $suggestTitleDiv.find('button');
-
-    // subtract 1px to offset the extra bit of padding in our lable that looks like a button
-    $imageUploaderButton.css('margin-top', parseInt($suggestTitleButton.css('margin-top')) - 1);
+    $suggestTitleDiv
+        .find('.image-uploader-button')
+        .css({
+            "float": "none",
+            "margin-left": 0,
+            "margin-top": "20px"
+        })
 })();
 
 $('body').click(function(event) {
@@ -181,7 +183,7 @@ function uploadImageFromFileInput(image, $fileInput) {
         $targetTextElement;
 
         if ($button.hasClass('for-submit-link-page')) {
-            $targetTextElement = $button.closest('#suggest-title').siblings('input#url');
+            $targetTextElement = $button.closest('#new-link-image-input').siblings('#new-link-url-input').find('input[type="url"]');
         } else if ($button.hasClass('for-submit-text-page')) {
             $targetTextElement = $button.closest('.usertext-edit').find('.md textarea');
         } else {
