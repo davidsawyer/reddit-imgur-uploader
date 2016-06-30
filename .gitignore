@@ -3,6 +3,4 @@
 node_modules
 
 dist/core.css
-dist/core.css.map
-dist/index.min.js
-dist/index.min.js.map
+dist/index.js
