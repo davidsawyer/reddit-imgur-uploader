@@ -1,6 +1,6 @@
 {
     "name": "reddit-imgur-uploader",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "description": "Upload an image to Imgur and use the resulting URL without ever leaving your Reddit tab",
     "main": "index.js",
     "author": "David Sawyer",
