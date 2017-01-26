@@ -6,8 +6,8 @@ var gulp = require('gulp'),
     del = require('del'),
     sass = require('gulp-sass'),
     notify = require("gulp-notify"),
-    autoprefixer = require('gulp-autoprefixer');
-
+    autoprefixer = require('gulp-autoprefixer')
+    zip = require('gulp-zip');
 
 var paths = {
     styles: [
@@ -39,10 +39,16 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest(paths.destination));
 });
 
+gulp.task('zip', () =>
+    gulp.src(['dist/**', 'manifest.json'])
+        .pipe(zip('upload-me-to-the-chrome-web-store.zip'))
+        .pipe(gulp.dest('.'))
+);
+
 gulp.task('watch', function() {
     gulp.watch(paths.scripts, ['scripts']);
     gulp.watch(paths.styles, ['sass']);
 });
 
 gulp.task('default', ['scripts', 'sass', 'watch']);
-gulp.task('prod', ['scripts', 'sass']);
+gulp.task('prod', ['scripts', 'sass', 'zip']);
