@@ -14,24 +14,13 @@ $('form.submit div.bottom-area a.reddiquette').after(
     '</label>'
 );
 
-// use an iife here so that the scope of these vars doesn't get too crazy
-;(function() {
-    var $suggestTitleDiv = $('#new-link-image-input');
-    $suggestTitleDiv.append(
-        '<label class="image-uploader-button for-submit-link-page" tabindex="0">upload image' +
-            '<input type="file" class="image-uploader">' +
-            '<span class="error-tooltip"></span>' +
-        '</label>'
-    );
-
-    $suggestTitleDiv
-        .find('.image-uploader-button')
-        .css({
-            "float": "none",
-            "margin-left": 0,
-            "margin-top": "20px"
-        })
-})();
+// submit page's link section
+$('#url-field').append(
+    '<label class="image-uploader-button for-submit-link-page" tabindex="0">upload image' +
+        '<input type="file" class="image-uploader">' +
+        '<span class="error-tooltip"></span>' +
+    '</label>'
+);
 
 $('body').click(function(event) {
     var $target = $(event.target)
@@ -138,7 +127,6 @@ function injectLink($textNode, url) {
     textNode.dispatchEvent(new Event('input'));
 }
 
-
 function setUpFileHandler($button) {
     var $fileInput = $button.find('.image-uploader');
 
@@ -183,7 +171,7 @@ function uploadImageFromFileInput(image, $fileInput) {
         $targetTextElement;
 
         if ($button.hasClass('for-submit-link-page')) {
-            $targetTextElement = $button.closest('#new-link-image-input').siblings('#new-link-url-input').find('input[type="url"]');
+            $targetTextElement = $button.siblings('.roundfield-content').find('input[type="url"]');
         } else if ($button.hasClass('for-submit-text-page')) {
             $targetTextElement = $button.closest('.usertext-edit').find('.md textarea');
         } else {
@@ -274,12 +262,15 @@ function showLoading($targetTextElement) {
         marginLeft = 0,
         loadingGifUrl = chrome.extension.getURL('dist/images/loading.gif');
 
+    // URL field
     if ($targetTextElement.is('#url')) {
         $containerDiv = $targetTextElement.closest('#url-field')
         height = $containerDiv.outerHeight()
         width = $containerDiv.outerWidth()
+    }
 
-    } else {
+    // text area
+    else {
         $containerDiv = $targetTextElement.closest('.md')
         height = $targetTextElement.outerHeight()
         width = $targetTextElement.outerWidth()
