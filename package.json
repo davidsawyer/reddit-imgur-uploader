@@ -1,24 +1,27 @@
 {
-    "name": "reddit-imgur-uploader",
-    "version": "0.4.0",
-    "description": "Upload an image to Imgur and use the resulting URL without ever leaving your Reddit tab",
-    "main": "index.js",
-    "author": "David Sawyer",
-    "license": "GPL-3.0",
-    "engines": {
-        "node": ">=v4.2.4"
-    },
-    "dependencies": {
-        "del": "^2.2.0",
-        "gulp": "^3.9.0",
-        "gulp-autoprefixer": "^3.1.0",
-        "gulp-concat": "^2.6.0",
-        "gulp-notify": "^2.2.0",
-        "gulp-sass": "^2.1.1",
-        "gulp-sourcemaps": "^1.6.0",
-        "gulp-uglify": "^1.5.1",
-        "gulp-util": "^3.0.7",
-        "gulp-zip": "^4.0.0",
-        "jquery": "^2.1.4"
-    }
+  "name": "reddit-imgur-uploader",
+  "version": "0.4.1",
+  "description": "Upload an image to Imgur and use the resulting URL without ever leaving your Reddit tab",
+  "main": "index.js",
+  "author": "David Sawyer",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davidsawyer/reddit-imgur-uploader.git"
+  },
+  "engines": {
+    "node": ">=v4.2.4"
+  },
+  "dependencies": {
+    "del": "^2.2.0",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-sass": "^2.1.1",
+    "gulp-sequence": "^0.4.6",
+    "gulp-zip": "^4.0.0",
+    "jquery": "^2.1.4",
+    "run-sequence": "^1.2.2"
+  }
 }
