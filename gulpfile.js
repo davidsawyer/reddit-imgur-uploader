@@ -1,13 +1,13 @@
-var gulp = require('gulp'),
+var autoprefixer = require('gulp-autoprefixer'),
     concat = require('gulp-concat'),
-    uglify = require('gulp-uglify'),
-    sourcemaps = require('gulp-sourcemaps'),
-    util = require('gulp-util'),
     del = require('del'),
+    gulp = require('gulp'),
+    notify = require('gulp-notify'),
+    runSequence = require('run-sequence'),
     sass = require('gulp-sass'),
-    notify = require("gulp-notify"),
-    autoprefixer = require('gulp-autoprefixer')
-    zip = require('gulp-zip');
+    zip = require('gulp-zip')
+
+var temp = 'temp-wrapper-folder'
 
 var paths = {
     styles: [
@@ -18,37 +18,42 @@ var paths = {
         'js/index.js'
     ],
     destination: 'dist'
-};
+}
 
-gulp.task('clean', function(cb) {
-    del(['dist/*.map'], cb);
-});
-
-gulp.task('sass', function() {
+gulp.task('sass', () =>
     gulp.src(paths.styles)
         .pipe(sass().on('error', notify.onError(function(error) {
-            return "Error: " + error.message;
+            return `Error: ${error.message}`
         })))
         .pipe(autoprefixer())
-        .pipe(gulp.dest(paths.destination));
-});
+        .pipe(gulp.dest(paths.destination))
+)
 
-gulp.task('scripts', function() {
+gulp.task('scripts', () =>
     gulp.src(paths.scripts)
         .pipe(concat('index.js'))
-        .pipe(gulp.dest(paths.destination));
-});
+        .pipe(gulp.dest(paths.destination))
+)
+
+gulp.task('wrap', () =>
+    gulp.src(['dist/**'])
+        .pipe(gulp.dest(`${temp}/dist`))
+)
 
 gulp.task('zip', () =>
-    gulp.src(['dist/**', 'manifest.json'])
+    gulp.src([`${temp}/**/*`, 'manifest.json'])
         .pipe(zip('upload-me-to-the-chrome-web-store.zip'))
         .pipe(gulp.dest('.'))
-);
+)
 
-gulp.task('watch', function() {
-    gulp.watch(paths.scripts, ['scripts']);
-    gulp.watch(paths.styles, ['sass']);
-});
+gulp.task('clean', () =>
+    del([`${temp}/**`])
+)
 
-gulp.task('default', ['scripts', 'sass', 'watch']);
-gulp.task('prod', ['scripts', 'sass', 'zip']);
+gulp.task('watch', () => {
+    gulp.watch(paths.scripts, ['scripts'])
+    gulp.watch(paths.styles, ['sass'])
+})
+
+gulp.task('default', ['scripts', 'sass', 'watch'])
+gulp.task('prod', (callback) => runSequence(['scripts', 'sass'], 'wrap', 'zip', 'clean', callback))
