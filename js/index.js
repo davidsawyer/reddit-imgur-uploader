@@ -50,7 +50,7 @@ $('body').click(function(event) {
 $('#siteTable form[action="#"] .md textarea, ' + // comments page's OP textarea
     '.commentarea form[action="#"] .md textarea, ' + // comments page's comment textarea
     'form.submit .md textarea') // submit page's textarea
-        .blur(function preserveHighlightIfNecessary() {
+.blur(function preserveHighlightIfNecessary() {
 
     var textarea = this,
         $textarea = $(textarea);
@@ -115,7 +115,7 @@ function injectLink($textNode, url) {
             .val(currentText + (currentText.trim().length > 0 ? " " : "") + url);
 
         // highlight our newly inserted URL
-        var textNode = $textNode[0];
+        textNode = $textNode[0];
         if (textNode) {
             currentText = $textNode.val();
             textNode.selectionStart = currentText.indexOf(url);
@@ -170,13 +170,13 @@ function uploadImageFromFileInput(image, $fileInput) {
         data = new FormData(),
         $targetTextElement;
 
-        if ($button.hasClass('for-submit-link-page')) {
-            $targetTextElement = $button.siblings('.roundfield-content').find('input[type="url"]');
-        } else if ($button.hasClass('for-submit-text-page')) {
-            $targetTextElement = $button.closest('.usertext-edit').find('.md textarea');
-        } else {
-            $targetTextElement = $fileInput.closest('form').find('textarea');
-        }
+    if ($button.hasClass('for-submit-link-page')) {
+        $targetTextElement = $button.siblings('.roundfield-content').find('input[type="url"]');
+    } else if ($button.hasClass('for-submit-text-page')) {
+        $targetTextElement = $button.closest('.usertext-edit').find('.md textarea');
+    } else {
+        $targetTextElement = $fileInput.closest('form').find('textarea');
+    }
 
     data.append("image", image);
 
@@ -196,10 +196,9 @@ function uploadImageFromFileInput(image, $fileInput) {
             contentType: false
         }
     )
-    .done(function(data, textStatus, jqXHR) {
+    .done(function(data) {
         if (data && data.data && data.data.link && data.data.link.length > 0) {
-            var currentText = $targetTextElement.val(),
-                imgurUrl = data.data.link.replace('http://', 'https://'); // imgur often passes back non-SSL URLs
+            var imgurUrl = data.data.link.replace('http://', 'https://'); // imgur often passes back non-SSL URLs
 
             injectLink($targetTextElement, imgurUrl);
         } else {
@@ -207,13 +206,13 @@ function uploadImageFromFileInput(image, $fileInput) {
                 (data && data.data && data.data.error ? " " + data.data.error : ""));
         }
     })
-    .fail(function(jqXHR, textStatus, errorThrown) {
+    .fail(function(jqXHR) {
         showButtonError($button, "Uh oh, something went wrong" +
             (jqXHR && jqXHR.responseJSON && jqXHR.responseJSON.data && jqXHR.responseJSON.data.error ?
                 " " + jqXHR.responseJSON.data.error :
                 ""));
     })
-    .always(function(data) {
+    .always(function() {
         $input.removeAttr('disabled');
 
         hideLoading($targetTextElement);
@@ -313,7 +312,7 @@ function showButtonError($button, errorMsg) {
     $tooltip.text(errorMsg);
 
     // pretty much some magic numbers :)
-    var topOffset = - ($tooltip.height() + 17)
+    var topOffset = - ($tooltip.height() + 17),
         leftOffset = 40 - $tooltip.width() / 2;
 
     $button
@@ -331,4 +330,4 @@ function showButtonError($button, errorMsg) {
 
 function removeButtonError($button) {
     $button.removeClass('reddit-imgur-uploader-error');
-};
+}
